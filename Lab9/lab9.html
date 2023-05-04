@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+ <style>
+	body 
+	{
+		margin: 0;
+	}
+
+	canvas 
+	{
+    width: 100%;
+    height: 100%;
+	}
+
+</style> 
+<script src="Build/three.js"></script>
+</head>
+<body>
+<script>
+let canvas = document.getElementById("glcanvas");
+
+const scene = new THREE.Scene({color: "#D3D3D3"});
+
+const camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 1000);
+
+const renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+document.body.appendChild(renderer.domElement);
+
+const light = new THREE.PointLight( 0xffffff, 1, 350 );
+light.position.set(-2, -0.5, 0.5);
+camera.add(light);
+scene.add(camera);
+
+const material = new THREE.MeshPhongMaterial(
+    {
+        color: "#D3D3D3", 
+    });
+
+let pionek = new THREE.Group();
+
+const bazaGeometria = new THREE.CylinderGeometry(0.8, 0.8, 0.1,100);
+const baza = new THREE.Mesh(bazaGeometria, material);
+pionek.add(baza);
+baza.position.y = 0.0;
+
+const baza2Geometria = new THREE.CylinderGeometry(0.7, 0.8, 0.2,100);
+const baza2 = new THREE.Mesh(baza2Geometria, material);
+pionek.add(baza2);
+baza2.position.y = 0.1 + baza.position.y;
+
+const cylinderGeometria = new THREE.CylinderGeometry(0.45, 0.65, 1.0, 100);
+const cylinder = new THREE.Mesh(cylinderGeometria, material);
+pionek.add(cylinder); 
+cylinder.position.y = 0.5 + baza2.position.y; 
+
+const cylinder2Geometria = new THREE.CylinderGeometry(0.45, 0.45, 1.0, 100);
+const cylinder2 = new THREE.Mesh(cylinder2Geometria, material);
+pionek.add(cylinder2); 
+cylinder2.position.y = 0.7 + cylinder.position.y; 
+
+const cylinder3Geometria = new THREE.CylinderGeometry(0.65, 0.45, 0.3, 100);
+const cylinder3 = new THREE.Mesh(cylinder3Geometria, material);
+pionek.add(cylinder3); 
+cylinder3.position.y = 0.6 + cylinder2.position.y; 
+
+const cylinder4Geometria = new THREE.CylinderGeometry(0.65, 0.65, 0.1, 100);
+const cylinder4 = new THREE.Mesh(cylinder4Geometria, material);
+pionek.add(cylinder4); 
+cylinder4.position.y = 0.1 + cylinder3.position.y;
+
+const cylinder5Geometria = new THREE.CylinderGeometry(0.5, 0.65, 0.2, 100);
+const cylinder5 = new THREE.Mesh(cylinder5Geometria, material);
+pionek.add(cylinder5); 
+cylinder5.position.y = 0.1 + cylinder4.position.y;
+
+
+const cylinder6Geometria = new THREE.CylinderGeometry(0.7, 0.4, 0.5, 100);
+const cylinder6 = new THREE.Mesh(cylinder6Geometria, material);
+pionek.add(cylinder6); 
+cylinder6.position.y = 0.25 + cylinder5.position.y;
+
+const cylinder7Geometria = new THREE.CylinderGeometry(0.1, 0.7, 0.3, 100);
+const cylinder7 = new THREE.Mesh(cylinder7Geometria, material);
+pionek.add(cylinder7); 
+cylinder7.position.y = 0.4 + cylinder6.position.y;
+
+const sferaGeometria = new THREE.SphereGeometry(0.2, 32, 32);
+const sfera = new THREE.Mesh(sferaGeometria, material);
+pionek.add(sfera); 
+sfera.position.y = 0.2 + 0.1 + cylinder7.position.y;
+
+const cylinder8Geometria = new THREE.CylinderGeometry(0.2, 0.2, 0.12, 100);
+const cylinder8 = new THREE.Mesh(cylinder8Geometria, material);
+pionek.add(cylinder8); 
+cylinder8.position.y = 0.1 + cylinder7.position.y;
+
+pionek.position.set(0,-3,1);
+scene.add(pionek);
+renderer.render(scene, camera);
+
+function animate() {
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
+}
+
+camera.position.z = 4.5;
+
+animate();
+
+</script>
+</body>
+</html>
